@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iconicmedia lyrics.app.com</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f1f2f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            color: #333;
+            animation: backgroundColorChange 10s infinite alternate;
+        }
+
+        @keyframes backgroundColorChange {
+            0% {
+                background-color: #ff6347; /* Tomato */
+            }
+            25% {
+                background-color: #3498db; /* Blue */
+            }
+            50% {
+                background-color: #f39c12; /* Yellow */
+            }
+            75% {
+                background-color: #2ecc71; /* Green */
+            }
+            100% {
+                background-color: #9b59b6; /* Purple */
+            }
+        }
+
+        header {
+            background-color: #ff6347;
+            color: white;
+            width: 100%;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+        }
+
+        .search-box {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .search-box input {
+            padding: 0.8rem;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .search-box button {
+            padding: 0.8rem;
+            font-size: 1rem;
+            color: white;
+            background-color: #ff6347;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .search-box button:hover {
+            background-color: #e53e3e;
+        }
+
+        .lyrics-box {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin-top: 2rem;
+            display: none;
+            animation: fadeIn 1s ease-out;
+            padding-bottom: 5rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .lyrics-box pre {
+            font-size: 1.2rem;
+            color: #555;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .lyrics-box button {
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            color: white;
+            background-color: #ff6347;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .lyrics-box button:hover {
+            background-color: #e53e3e;
+        }
+
+        footer {
+            margin-top: 3rem;
+            font-size: 1rem;
+            color: #888;
+        }
+
+        .like-button {
+            background-color: #ff3b30;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .like-button:hover {
+            background-color: #e03127;
+        }
+
+        .loading {
+            font-size: 1.5rem;
+            color: #ff9800;
+        }
+
+        /* Full-screen mode for lyrics */
+        .fullscreen-lyrics {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+            padding: 3rem;
+            overflow-y: auto;
+        }
+
+        .fullscreen-lyrics pre {
+            font-size: 2rem;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .fullscreen-lyrics button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            background-color: #ff6347;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .fullscreen-lyrics button:hover {
+            background-color: #e53e3e;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 600px) {
+            .lyrics-box {
+                width: 100%;
+                padding: 1rem;
+                max-height: 100vh;
+                margin-top: 0;
+                border-radius: 0;
+            }
+
+            .search-box {
+                width: 100%;
+                padding: 1rem;
+            }
+        }
+
+        /* Follow Button with Jumping Animation */
+        .follow-button {
+            display: inline-block;
+            background-color: #ff6347;
+            color: white;
+            font-size: 1rem;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            animation: jump 2s infinite;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .follow-button:hover {
+            background-color: #e53e3e;
+        }
+
+        @keyframes jump {
+            0% {
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(-15px); /* Upward movement */
+            }
+            50% {
+                transform: translateY(0); /* Back to original position */
+            }
+            75% {
+                transform: translateY(-15px); /* Another upward movement */
+            }
+            100% {
+                transform: translateY(0); /* Back to original position */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>iconicmedia lyrics.app.com</h1>
+    </header>
+
+    <div class="search-box" id="searchBox">
+        <input type="text" id="songTitle" placeholder="Enter Song Title (e.g., Faded)" />
+        <input type="text" id="songArtist" placeholder="Enter Artist Name (e.g., Alan Walker)" />
+        <button onclick="fetchLyrics()">Search Lyrics</button>
+        <div id="loadingText" class="loading" style="display: none;">Loading lyrics...</div>
+    </div>
+
+    <div class="lyrics-box" id="lyricsBox">
+        <h2 id="songName"></h2>
+        <pre id="lyricsText"></pre>
+        <button onclick="copyLyrics()">Copy Lyrics</button>
+        <button class="like-button" onclick="likeLyrics()">Like</button>
+        <button onclick="toggleFullScreen()">Full Screen</button>
+        <button onclick="goBackToSearch()">Back to Search</button>
+        <div id="likeMessage" style="display: none; color: #28a745;">You liked the lyrics!</div>
+    </div>
+
+    <div class="fullscreen-lyrics" id="fullscreenLyrics" style="display: none;">
+        <button onclick="closeFullScreen()">Close</button>
+        <pre id="fullscreenLyricsText"></pre>
+    </div>
+
+    <footer>
+      <p>web created by ICONICS-TECH official</p>
+      <h2>Thank you for using our website</h2>
+      <p>Developed by +263716304574</p>
+      <a href="https://chat.whatsapp.com/LyFPHDvc5vMCglUFjv7Rlp" class="follow-button" target="_blank">Follow Me on WhatsApp</a>
+    </footer>
+
+    <script>
+        async function fetchLyrics() {
+            const songTitle = document.getElementById('songTitle').value;
+            const songArtist = document.getElementById('songArtist').value;
+            const lyricsBox = document.getElementById('lyricsBox');
+            const lyricsText = document.getElementById('lyricsText');
+            const songName = document.getElementById('songName');
+            const loadingText = document.getElementById('loadingText');
+            const searchBox = document.getElementById('searchBox');
+
+            if (!songTitle || !songArtist) {
+                alert('Please enter both song title and artist name.');
+                return;
+            }
+
+            // Show loading text while fetching
+            loadingText.style.display = 'block';
+            searchBox.style.display = 'none';
+            lyricsBox.style.display = 'none';
+
+            try {
+                const response = await fetch(`https://api.davidcyriltech.my.id/lyrics?t=${encodeURIComponent(songTitle)}&a=${encodeURIComponent(songArtist)}`);
+                const data = await response.json();
+
+                if (data && data.lyrics) {
+                    songName.textContent = `${songTitle} - ${songArtist}`;
+                    lyricsText.textContent = data.lyrics;
+                    searchBox.style.display = 'none';
+                    lyricsBox.style.display = 'block';
+                    loadingText.style.display = 'none';
+                } else {
+                    lyricsText.textContent = 'Sorry, lyrics not found.';
+                    searchBox.style.display = 'none';
+                    lyricsBox.style.display = 'block';
+                    loadingText.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error fetching lyrics:', error);
+                lyricsText.textContent = 'An error occurred while fetching the lyrics. Please try again later.';
+                searchBox.style.display = 'none';
+                lyricsBox.style.display = 'block';
+                loadingText.style.display = 'none';
+            }
+        }
+
+        function copyLyrics() {
+            const lyricsText = document.getElementById('lyricsText');
+            const range = document.createRange();
+            range.selectNode(lyricsText);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+
+            try {
+                document.execCommand('copy');
+                alert('Lyrics copied to clipboard!');
+            } catch (err) {
+                alert('Failed to copy lyrics.');
+            }
+
+            window.getSelection().removeAllRanges();  // Deselect the text
+        }
+
+        function likeLyrics() {
+            const likeMessage = document.getElementById('likeMessage');
+            likeMessage.style.display = 'block';  // Show the "Liked" message
+        }
+
+        function toggleFullScreen() {
+            const lyricsBox = document.getElementById('lyricsBox');
+            const fullscreenLyrics = document.getElementById('fullscreenLyrics');
+            const fullscreenLyricsText = document.getElementById('fullscreenLyricsText');
+            const lyricsText = document.getElementById('lyricsText');
+
+            lyricsBox.style.display = 'none';
+            fullscreenLyrics.style.display = 'block';
+            fullscreenLyricsText.textContent = lyricsText.textContent;
+        }
+
+        function closeFullScreen() {
+            const lyricsBox = document.getElementById('lyricsBox');
+            const fullscreenLyrics = document.getElementById('fullscreenLyrics');
+
+            fullscreenLyrics.style.display = 'none';
+            lyricsBox.style.display = 'block';
+        }
+
+        function goBackToSearch() {
+            const searchBox = document.getElementById('searchBox');
+            const lyricsBox = document.getElementById('lyricsBox');
+
+            searchBox.style.display = 'block';
+            lyricsBox.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
